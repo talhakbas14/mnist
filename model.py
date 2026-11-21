@@ -16,18 +16,18 @@ class RakamTanima(nn.Module): #kalıtım alıyoruz, nn.Module sınıfından tür
         self.fc2 = nn.Linear(128, 10) #128 boyutundaki veriyi 10 boyutuna düşürür, 0 dan 9 a kadar olan rakamları temsil eder
 
     def forward (self, x): #bu metod, yeni resim geldiğinde bu resmin hangi işlemlerden geçeceğini belirler
-        x = self.conv1(X) #(1, 28, 28) boyutundaki veriyi (32, 26, 26) boyutuna düşürür
+        x = self.conv1(x) #(1, 28, 28) boyutundaki veriyi (32, 26, 26) boyutuna düşürür
         x = F.relu(x) #negatif değerleri 0 yapar, pozitif değerleri ise değiştirmez
 
-        X = self.conv2(x) #(32, 26, 26) boyutundaki veriyi (64, 24, 24) boyutuna düşürür
+        x= self.conv2(x) #(32, 26, 26) boyutundaki veriyi (64, 24, 24) boyutuna düşürür
         x = F.relu(x) 
 
         x = F.max_pool2d(x, 2) #(64, 24, 24) boyutundaki veriyi (64, 12, 12) boyutuna düşürür 2x2 lik 4 pikselden en büyük olanı alır, resmi yarıya indirir
-        X = self.dropout1(x) #eğitim sırasında nöronların %25 ini rastgele kapatarak overfittingi önler
+        x = self.dropout1(x) #eğitim sırasında nöronların %25 ini rastgele kapatarak overfittingi önler
 
         x = torch.flatten(x, 1) #(64, 12, 12) boyutundaki veriyi (9216) boyutuna düşürür
 
-        X = self.fc1(x) #(9216) boyutundaki veriyi (128) boyutuna düşürür 
+        x = self.fc1(x) #(9216) boyutundaki veriyi (128) boyutuna düşürür 
         x = F.relu(x)
         x = self.dropout2(x) #eğitim sırasında nöronların %50 sini rastgele kapatarak overfittingi önler
 
@@ -40,5 +40,5 @@ if __name__ == "__main__":
     sonuc = model(yanlis_resim) #hayali resim modelden geçirilir
     print("Model başarıyla olışturuldu!") 
     print("Girdi Boyutu: ", yanlis_resim.shape) #yanlış resmin boyutunu ekrana yazdırır
-    print("Çıktı Boyutu: ", sonuc.shape, "---("Bir resim için 0-9 arası rakam tahmini yapar")") #modelin çıktısının boyutunu ekrana yazdırır, 10 boyutlu çıktı verir, 0 dan 9 a kadar olan rakamları temsil eder
+    print("Çıktı Boyutu: ", sonuc.shape, "---(Bir resim için 0-9 arası rakam tahmini yapar)") #modelin çıktısının boyutunu ekrana yazdırır, 10 boyutlu çıktı verir, 0 dan 9 a kadar olan rakamları temsil eder
 
