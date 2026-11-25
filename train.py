@@ -104,7 +104,7 @@ def egitim_ve_degerlendirme():
     torch.save(model.state_dict(), model_dosya_adi) #bilgisayar kapandığında modelin eğitimi silinmemesi için kullanılır
     print(f"\n[BİLGİ] Eğitilen model '{model_dosya_adi}' olarak başarıyla kaydedildi.")
 
-    #istenilen hatalı tahmibler raporunu verir
+    #istenilen hatalı tahmibler raporunu veri
     if hatali_ornekler:
         fig, eksenler = plt.subplots(2, 5, figsize=(12, 5))
         fig.suptitle(f"Modelin Yanlış Tahmin Ettiği Örnekler (Test Doğruluğu: %{dogruluk_orani:.2f})", fontsize=14)
